@@ -42,7 +42,7 @@ OPEN(1,file='XX.dat')
                      
                      
                    
-                     
+                     nnnnnvhvgh
                        
                     
                       print*,bin_hits
