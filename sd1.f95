@@ -4,7 +4,7 @@ REAL::m
 
 INTEGER::i,j,k,bin,nbins            ! bin is the count of each n in a particular bin
 INTEGER,PARAMETER::n=100
-REAL,PARAMETER::a=-2.00,b=+2.000,w=0.2
+REAL,PARAMETER::a=-2.00,b=+2.000,w=0.2,p=0.5,q=0.5
 integer,allocatable :: bin_hits(:)         !bin_hits(nbins) is the number of particles in the bins 
 real,allocatable :: bin_lower(:)         !is the array from -2 to +2 consisting of all 20 numbers
 
@@ -18,9 +18,10 @@ allocate (bin_lower(nbins))
 
 
 OPEN(1,file='XX.dat')
-
+OPEN(2,file='gauss.dat')
+ OPEN(3,file='hits.dat')                  
                    DO j=1,nbins
-                       bin_lower(j)=a+(w*(j-1)).
+                       bin_lower(j)=a+(w*(j-1))
                        bin_hits(j)=0
                        print*,j,bin_lower(j)
                    END DO           
@@ -31,21 +32,25 @@ OPEN(1,file='XX.dat')
                      
                     DO i=1,n
                      	  x(i)=rand()*(b-a)+a
-                         !bin = INT(x(i) / w+1)
-                         !bin_hits(bin)=bin_hits(bin)+1  
-                         
-                     	  bin = count(bin_lower <= x(i)) 
+                        gauss(i)=sqrt((1/3.14*2*0.5))*EXP(-((x(i)-p)**2)/q)
+                         if(gauss(i) .lt. (rand()*(-2-2)+2))      goto 2
+                         bin = count(bin_lower <= x(i)) 
     			  bin_hits(bin) = bin_hits(bin)+1
                      	  
-                   	  PRINT*,i,x(i)	
+                   	  PRINT*,i,x(i),gauss(i)
+                   	  WRITE(2,*) x(i),gauss(i)
+                   	 	
 		     END DO 
                      
                      
-                   
-                     nnnnnvhvghadd
+                    DO j=1,nbins
+                    WRITE(3,*) bin_lower(j),bin_hits(j)
+                   END DO           
+                     
+                     
                        
                     
-                      print*,bin_hits
+                      !print*,bin_hits
                      
                      
                      

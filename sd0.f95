@@ -3,7 +3,7 @@ INTEGER::m1
 REAL::m
 
 INTEGER::i,j,k,bin,nbins            ! bin is the count of each n in a particular bin
-INTEGER,PARAMETER::n=100
+INTEGER,PARAMETER::n=10
 REAL,PARAMETER::a=-2.00,b=+2.000,w=0.2
 integer,allocatable :: bin_hits(:)         !bin_hits(nbins) is the number of particles in the bins 
 real,allocatable :: bin_lower(:)         !is the array from -2 to +2 consisting of all 20 numbers
@@ -20,34 +20,31 @@ allocate (bin_lower(nbins))
 OPEN(1,file='XX.dat')
 
                    DO j=1,nbins
-                       bin_lower(j)=a+(w*(j-1)).
+                       bin_lower(j)=a+(w*(j-1))
                        bin_hits(j)=0
                        print*,j,bin_lower(j)
                    END DO           
                      
-                  print*,bin_lower
+                 ! print*,bin_lower
                      
                      
                      
                     DO i=1,n
                      	  x(i)=rand()*(b-a)+a
-                         !bin = INT(x(i) / w+1)
-                         !bin_hits(bin)=bin_hits(bin)+1  
+                          
                          
                      	  bin = count(bin_lower <= x(i)) 
     			  bin_hits(bin) = bin_hits(bin)+1
                      	  
-                   	  PRINT*,i,x(i)	
+                   	  !PRINT*,i,x(i)	
 		     END DO 
                      
                      
                    
-                     nnnnnvhvghadd
-                       
                     
-                      print*,bin_hits
+                      print*,bin_lower, bin_hits
                      
-                     
+                     write(1,*)bin_lower, bin_hits(bin)
                      
 END PROGRAM RANDOMNUMBER
 
